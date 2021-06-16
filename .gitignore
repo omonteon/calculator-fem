@@ -15,4 +15,9 @@
 .DS_Store
 .prettierignore
 
-node_modules/
+node_modules
+.cache/
+dist/
+.env
+coverage/
+.vscode/
