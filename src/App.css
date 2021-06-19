@@ -30,20 +30,55 @@ body {
   display: grid;
   box-sizing: border-box;
   border-radius: 10px;
-  /* Mobile */
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 64px);
   gap: 13px;
   padding: 24px;
   margin: 24px;
   background-color: #242d44;
-  /* Desktop */
-  /* grid-template-columns: repeat(4, minmax(101px, auto));
-  grid-template-rows: repeat(5, 64px);
-  gap: 25px;
-  padding: 32px; */
 }
 .number-pad > button:nth-last-of-type(2),
 .number-pad > button:last-of-type {
   grid-area: span 1 / span 2;
+}
+
+.number-pad > button {
+  /* BUTTON REST */
+  background-color: #eae3dc;
+  box-shadow: inset 0px -4px 0px #b3a497;
+  border-radius: 5px;
+  /* CLEARING DEFAULT STYLES */
+  border: none;
+  padding: 0;
+}
+
+.number-pad button .btn__text {
+  /* BUTTON TEXT */
+  color: #434a59;
+  font-family: Spartan, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 31px;
+  letter-spacing: -0.466667px;
+  /* DETAILING */
+  display: block;
+  margin-bottom: 10px;
+}
+
+.number-pad > button.secondary .btn__text,
+.number-pad > button.primary .btn__text {
+  color: white;
+  font-size: 16px;
+  line-height: 18px;
+  letter-spacing: -0.266667px;
+}
+
+.number-pad > button.secondary {
+  background: #647198;
+  box-shadow: inset 0px -4px 0px #414e73;
+}
+
+.number-pad > button.primary {
+  background-color: #d03f2f;
+  box-shadow: inset 0px -4px 0px #93261a;
 }
