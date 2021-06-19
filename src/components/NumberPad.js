@@ -1,33 +1,33 @@
 import React from "react";
 
-const BUTTONS_TEXT = [
-  "7",
-  "8",
-  "9",
-  "DEL",
-  "4",
-  "5",
-  "6",
-  "+",
-  "1",
-  "2",
-  "3",
-  "-",
-  ".",
-  "0",
-  "/",
-  "X",
-  "RESET",
-  "=",
+const BUTTONS = [
+  { text: "7" },
+  { text: "8" },
+  { text: "9" },
+  { text: "DEL", type: "secondary" },
+  { text: "4" },
+  { text: "5" },
+  { text: "6" },
+  { text: "+" },
+  { text: "1" },
+  { text: "2" },
+  { text: "3" },
+  { text: "-" },
+  { text: "." },
+  { text: "0" },
+  { text: "/" },
+  { text: "x" },
+  { text: "RESET", type: "secondary" },
+  { text: "=", type: "primary" },
 ];
 
 function NumberPad() {
   return (
     <div className="number-pad">
-      {BUTTONS_TEXT.map((btnText) => {
+      {BUTTONS.map((btn) => {
         return (
-          <button key={btnText} type="button">
-            {btnText}
+          <button key={btn.text} type="button" className={btn.type || ""}>
+            <span className="btn__text">{btn.text}</span>
           </button>
         );
       })}
