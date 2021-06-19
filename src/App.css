@@ -1,0 +1,13 @@
+.number-pad {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(101px, auto));
+  grid-template-rows: repeat(5, 64px);
+  gap: 25px;
+  width: 476px;
+  padding: 32px;
+  box-sizing: border-box;
+}
+.number-pad > button:nth-last-of-type(2),
+.number-pad > button:last-of-type {
+  grid-area: span 1 / span 2;
+}
