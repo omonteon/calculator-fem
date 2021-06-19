@@ -1,11 +1,47 @@
+body {
+  background-color: #3a4663;
+  margin: 0;
+}
+
+/* CALCULATOR */
+.calculator {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* DISPLAY */
+.display {
+  background-color: #181f33;
+  padding: 26px 24px;
+  border-radius: 10px;
+  margin: 24px;
+  /* TEXT */
+  font-family: Spartan, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 36px;
+  text-align: right;
+  letter-spacing: -0.533333px;
+  color: #ffffff;
+}
+
+/* NUMBER PAD */
 .number-pad {
   display: grid;
-  grid-template-columns: repeat(4, minmax(101px, auto));
+  box-sizing: border-box;
+  border-radius: 10px;
+  /* Mobile */
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 64px);
+  gap: 13px;
+  padding: 24px;
+  margin: 24px;
+  background-color: #242d44;
+  /* Desktop */
+  /* grid-template-columns: repeat(4, minmax(101px, auto));
   grid-template-rows: repeat(5, 64px);
   gap: 25px;
-  width: 476px;
-  padding: 32px;
-  box-sizing: border-box;
+  padding: 32px; */
 }
 .number-pad > button:nth-last-of-type(2),
 .number-pad > button:last-of-type {
