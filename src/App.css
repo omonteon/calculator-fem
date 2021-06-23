@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@400;700&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: Spartan, Arial, Helvetica, sans-serif;
+}
+
 body {
   background-color: #3a4663;
   margin: 0;
@@ -9,6 +16,23 @@ body {
   margin: 0 auto;
 }
 
+/* HEADER */
+.calculator__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 28px 24px;
+}
+.calculator__header h2 {
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 36px;
+  text-align: center;
+  letter-spacing: -0.533333px;
+  color: #ffffff;
+  margin: 0;
+}
+
 /* DISPLAY */
 .display {
   background-color: #181f33;
@@ -16,7 +40,6 @@ body {
   border-radius: 10px;
   margin: 24px;
   /* TEXT */
-  font-family: Spartan, Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 32px;
   line-height: 36px;
@@ -28,7 +51,6 @@ body {
 /* NUMBER PAD */
 .number-pad {
   display: grid;
-  box-sizing: border-box;
   border-radius: 10px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 64px);
@@ -55,14 +77,13 @@ body {
 .number-pad button .btn__text {
   /* BUTTON TEXT */
   color: #434a59;
-  font-family: Spartan, Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 28px;
   line-height: 31px;
   letter-spacing: -0.466667px;
   /* DETAILING */
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .number-pad > button.secondary .btn__text,
