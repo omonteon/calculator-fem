@@ -38,8 +38,36 @@ body {
   margin: 0;
 }
 
-/* THEME SWITCH */
-.theme-switch {
+/* THEME PICKER */
+.theme-picker {
+  display: flex;
+}
+.theme-picker__title {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 13px;
+  letter-spacing: 1px;
+  color: #fff;
+  text-transform: uppercase;
+  margin-right: 21px;
+  margin-bottom: 5px;
+  align-self: flex-end;
+}
+.switch-option-numbers {
+  display: flex;
+  margin: 0 5px 5px;
+  justify-content: space-between;
+}
+.switch-option-numbers span {
+  font-weight: 700;
+  color: white;
+  font-size: 12px;
+  line-height: 13px;
+  display: block;
+  width: 16px;
+  text-align: center;
+}
+.triple-switch {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -49,31 +77,12 @@ body {
   border-radius: 13px;
   padding: 5px;
 }
-.option-numbers {
-  display: flex;
-  margin: 0 5px 5px;
-  justify-content: space-between;
-}
-.option-numbers span {
-  font-weight: 700;
-  color: white;
-  font-size: 12px;
-  line-height: 13px;
-  display: block;
-  width: 16px;
-  text-align: center;
-}
-.wrapper {
+.triple-switch .wrapper {
   position: relative;
   width: 16px;
 }
-/*style label to give some more space*/
-/* .wrapper label {
-  display: block;
-  padding: 12px 0 12px 48px;
-} */
 /*style and hide original checkbox*/
-.wrapper input {
+.triple-switch .wrapper input {
   height: 16px;
   left: 0;
   opacity: 0;
@@ -84,23 +93,21 @@ body {
   margin: 0;
 }
 
-.wrapper input + label {
+.triple-switch .wrapper input + label {
   display: block;
   background-color: #d03f2f;
   opacity: 0;
-
   width: 16px;
   height: 16px;
   border-radius: 50%;
-
   transition: opacity 0.2s ease-in-out;
 }
 
-.wrapper input:checked + label {
+.triple-switch .wrapper input:checked + label {
   opacity: 1;
 }
 
-.wrapper input:focus + label {
+.triple-switch .wrapper input:focus + label {
   box-shadow: 0 0 0 2px #fff;
   outline: 3px dotted transparent; /* For Windows high contrast mode. */
 }
