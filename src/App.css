@@ -5,6 +5,11 @@
   font-family: Spartan, Arial, Helvetica, sans-serif;
 }
 
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
   background-color: #3a4663;
   margin: 0;
@@ -31,6 +36,88 @@ body {
   letter-spacing: -0.533333px;
   color: #ffffff;
   margin: 0;
+}
+
+/* THEME SWITCH */
+.theme-switch {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 71px;
+  height: 26px;
+  background-color: #242d44;
+  border-radius: 13px;
+  padding: 5px;
+}
+.option-numbers {
+  display: flex;
+  margin: 0 5px;
+  justify-content: space-around;
+}
+.wrapper {
+  position: relative;
+  width: 16px;
+}
+/*style label to give some more space*/
+/* .wrapper label {
+  display: block;
+  padding: 12px 0 12px 48px;
+} */
+/*style and hide original checkbox*/
+.wrapper input {
+  height: 16px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+/*position new box*/
+/* .wrapper input + label::before {
+  border: 2px solid;
+  content: "";
+  height: 40px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 40px;
+  border-radius: 50%;
+} */
+.wrapper input + label {
+  /* position: absolute; */
+}
+
+/*radio pseudo element styles*/
+.wrapper input + label {
+  /* Styles when using ::after */
+  /* content: " ";
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border: 8px solid; */
+  display: block;
+  background-color: #d03f2f;
+  opacity: 0;
+
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+
+  transition: opacity 0.2s ease-in-out;
+}
+
+/*reveal check for 'on' state*/
+.wrapper input:checked + label {
+  opacity: 1;
+}
+
+/*focus styles*/
+.wrapper input:focus + label {
+  /* box-shadow: 0 0 0 2px #fff; */
+  outline: 3px dotted #fff; /* For Windows high contrast mode. */
 }
 
 /* DISPLAY */
