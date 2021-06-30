@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-function ThemeSwitch() {
-  const [theme, setTheme] = useState("1");
+function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
   return (
     <div className="theme-picker">
       <span className="theme-picker__title">Theme</span>
@@ -19,7 +18,7 @@ function ThemeSwitch() {
               id="theme-1"
               value="1"
               onChange={(e) => {
-                setTheme(e.currentTarget.value);
+                onThemeChange(e.currentTarget.value);
               }}
               checked={theme === "1"}
               aria-checked={theme === "1" ? "true" : "false"}
@@ -33,7 +32,7 @@ function ThemeSwitch() {
               id="theme-2"
               value="2"
               onChange={(e) => {
-                setTheme(e.currentTarget.value);
+                onThemeChange(e.currentTarget.value);
               }}
               checked={theme === "2"}
               aria-checked={theme === "2" ? "true" : "false"}
@@ -47,7 +46,7 @@ function ThemeSwitch() {
               id="theme-3"
               value="3"
               onChange={(e) => {
-                setTheme(e.currentTarget.value);
+                onThemeChange(e.currentTarget.value);
               }}
               checked={theme === "3"}
               aria-checked={theme === "3" ? "true" : "false"}
