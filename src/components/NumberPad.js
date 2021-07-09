@@ -22,11 +22,11 @@ const BUTTONS = [
 ];
 
 const STATE_TABLE = [
-  [0, 1, 2, 0],
-  [1, 1, 2, 0],
-  [2, 3, 2, 0],
-  [3, 3, 4, 0],
-  [4, 3, 2, 0],
+  [0, 1, 2, 0, 0],
+  [1, 1, 2, 0, 2],
+  [2, 3, 2, 0, 2],
+  [3, 3, 4, 0, 4],
+  [4, 3, 2, 0, 4],
 ];
 
 function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
@@ -62,6 +62,9 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
       case "RESET":
         inputIndex = 3;
         break;
+      case "=":
+        inputIndex = 4;
+        break;
       default:
         return;
     }
@@ -83,6 +86,7 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
         }
         break;
       case 2:
+        setSecondOperand(0);
         if (buttonText !== "0") {
           setOperator(buttonText);
         }
@@ -108,9 +112,17 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
         } else if (operator === "/") {
           result = firstOperand / secondOperand;
         }
-        setOperator(buttonText);
+        if (
+          buttonText.includes("+") ||
+          buttonText.includes("-") ||
+          buttonText.includes("x") ||
+          buttonText.includes("/")
+        ) {
+          setOperator(buttonText);
+        }
+
         setFirstOperand(result);
-        setSecondOperand(0);
+        // setSecondOperand(0);
         setDisplayValue(result);
       default:
         break;
