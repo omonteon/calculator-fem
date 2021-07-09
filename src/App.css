@@ -54,6 +54,7 @@ body {
   margin: 0;
   background-color: var(--background-color);
 }
+
 .attribution {
   font-size: 11px;
   color: white;
@@ -70,11 +71,14 @@ body {
   --header-color: var(--secondary-color);
   --background-color-dark: #242d44;
   --btn-default-bg-color: #eae3dc;
+  --btn-default-bg-color--hover: #fffffe;
   --btn-default-shadow-color: #b3a497;
   --btn-primary-bg-color: #d03f2f;
+  --btn-primary-bg-color--hover: #f96b5b;
   --btn-primary-shadow-color: #93261a;
   --btn-primary-text-color: var(--secondary-color);
   --btn-secondary-bg-color: #647198;
+  --btn-secondary-bg-color--hover: #a2b2e1;
   --btn-secondary-shadow-color: #414e73;
   --display-bg-color: #181f33;
 }
@@ -84,11 +88,14 @@ body {
   --header-color: var(--primary-color);
   --background-color-dark: #d2cdcd;
   --btn-default-bg-color: #e5e4e1;
+  --btn-default-bg-color--hover: #ffffff;
   --btn-default-shadow-color: #a79e91;
   --btn-primary-bg-color: #c85402;
+  --btn-primary-bg-color--hover: #ff8a38;
   --btn-primary-shadow-color: #873901;
   --btn-primary-text-color: var(--secondary-color);
   --btn-secondary-bg-color: #378187;
+  --btn-secondary-bg-color--hover: #62b5bc;
   --btn-secondary-shadow-color: #1b6066;
   --display-bg-color: #eeeeee;
 }
@@ -98,11 +105,14 @@ body {
   --header-color: var(--primary-color);
   --background-color-dark: #1e0936;
   --btn-default-bg-color: #331c4d;
+  --btn-default-bg-color--hover: #6c34ac;
   --btn-default-shadow-color: #881c9e;
   --btn-primary-bg-color: #00ded0;
+  --btn-primary-bg-color--hover: #93fff8;
   --btn-primary-shadow-color: #6cf9f1;
   --btn-primary-text-color: #1a2327;
   --btn-secondary-bg-color: #56077c;
+  --btn-secondary-bg-color--hover: #8631af;
   --btn-secondary-shadow-color: #be15f4;
   --display-bg-color: #1e0936;
 }
@@ -182,6 +192,7 @@ body {
   width: 16px;
   padding: 0;
   margin: 0;
+  z-index: 1;
 }
 .triple-switch .wrapper input + label {
   display: block;
@@ -192,7 +203,15 @@ body {
   border-radius: 50%;
   transition: opacity 0.2s ease-in-out;
 }
+.triple-switch .wrapper input:hover,
+.triple-switch .wrapper input:focus {
+  cursor: pointer;
+}
+.triple-switch .wrapper input:checked:hover + label {
+  background-color: var(--btn-primary-bg-color--hover);
+}
 .triple-switch .wrapper input:checked + label {
+  /* cursor: pointer; */
   opacity: 1;
 }
 .triple-switch .wrapper input:focus + label {
@@ -239,6 +258,10 @@ body {
   border: none;
   padding: 0;
 }
+.number-pad > button:hover {
+  cursor: pointer;
+  background-color: var(--btn-default-bg-color--hover);
+}
 .number-pad button .btn__text {
   /* BUTTON TEXT */
   color: var(--primary-color);
@@ -254,9 +277,15 @@ body {
   background-color: var(--btn-primary-bg-color);
   box-shadow: inset 0px -4px 0px var(--btn-primary-shadow-color);
 }
+.number-pad > button.primary:hover {
+  background-color: var(--btn-primary-bg-color--hover);
+}
 .number-pad > button.secondary {
   background-color: var(--btn-secondary-bg-color);
   box-shadow: inset 0px -4px 0px var(--btn-secondary-shadow-color);
+}
+.number-pad > button.secondary:hover {
+  background-color: var(--btn-secondary-bg-color--hover);
 }
 .number-pad > button.secondary .btn__text,
 .number-pad > button.primary .btn__text {

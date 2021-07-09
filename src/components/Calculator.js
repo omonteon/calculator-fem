@@ -5,8 +5,10 @@ import ThemeSwitch from "./ThemeSwitch";
 
 const THEME_COLORS = { 1: "#3a4663", 2: "#E6E6E6", 3: "#17062a" };
 
-function Calculator({ displayValue = 399981 }) {
+function Calculator() {
   const [theme, setTheme] = useState("1");
+  const [displayValue, setDisplayValue] = useState("0");
+
   function handleThemeChange(theme) {
     const root = window.document.documentElement;
     root.style.setProperty("--background-color", THEME_COLORS[theme]);
@@ -19,7 +21,10 @@ function Calculator({ displayValue = 399981 }) {
         <ThemeSwitch theme={theme} onThemeChange={handleThemeChange} />
       </div>
       <Display value={displayValue} />
-      <NumberPad />
+      <NumberPad
+        displayValue={displayValue}
+        setDisplayValue={setDisplayValue}
+      />
     </div>
   );
 }
