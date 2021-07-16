@@ -21,12 +21,14 @@ const BUTTONS = [
   { text: "=", type: "primary" },
 ];
 
+const OPERAND = { FIRST: 1, SECOND: 2 };
+
 const STATE_TABLE = [
-  [0, 1, 2, 0, 0],
-  [1, 1, 2, 0, 2],
-  [2, 3, 2, 0, 2],
-  [3, 3, 4, 0, 4],
-  [4, 3, 2, 0, 4],
+  [0, 1, 2, 0, 0, 0],
+  [1, 1, 2, 0, 2, 1],
+  [2, 3, 2, 0, 2, 2],
+  [3, 3, 4, 0, 4, 3],
+  [4, 3, 2, 0, 4, 4],
 ];
 
 function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
@@ -35,6 +37,59 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
   const [secondOperand, setSecondOperand] = useState(0);
   const [operator, setOperator] = useState(null);
 
+  function handleDeleteButtonClick() {
+    if (displayValue.length > 1) {
+      setDisplayValue((displayValue) => {
+        return displayValue.slice(0, -1);
+      });
+      setFirstOperand((firstOperand) => {
+        return parseFloat(firstOperand.toString().slice(0, -1));
+      });
+    } else {
+      setDisplayValue("0");
+      setFirstOperand(0);
+    }
+  }
+  function handleNumberButtonClick(buttonText, operandNumber = OPERAND.FIRST) {
+    if (parseFloat(displayValue) === 0) {
+      setDisplayValue(buttonText);
+      setFirstOperand(parseFloat(buttonText));
+    } else if (operandNumber === OPERAND.FIRST) {
+      setDisplayValue(`${displayValue}${buttonText}`);
+      setFirstOperand(parseFloat(`${displayValue}${buttonText}`));
+    } else if (operandNumber === OPERAND.SECOND) {
+      if (state === 2 || state === 4) {
+        setDisplayValue(buttonText);
+        setSecondOperand(parseFloat(buttonText));
+      } else {
+        setDisplayValue(`${displayValue}${buttonText}`);
+        setSecondOperand(parseFloat(`${displayValue}${buttonText}`));
+      }
+    }
+  }
+  function calculateResult(buttonText) {
+    let result = 0;
+    console.log(operator);
+    if (operator === "+") {
+      result = firstOperand + secondOperand;
+    } else if (operator === "-") {
+      result = firstOperand - secondOperand;
+    } else if (operator === "x") {
+      result = firstOperand * secondOperand;
+    } else if (operator === "/") {
+      result = firstOperand / secondOperand;
+    }
+    if (
+      buttonText.includes("+") ||
+      buttonText.includes("-") ||
+      buttonText.includes("x") ||
+      buttonText.includes("/")
+    ) {
+      setOperator(buttonText);
+    }
+    setFirstOperand(result);
+    setDisplayValue(result.toString());
+  }
   function handleButtonClick(event) {
     let inputIndex = null;
     const buttonText = event.target.innerText;
@@ -65,6 +120,9 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
       case "=":
         inputIndex = 4;
         break;
+      case "DEL":
+        inputIndex = 5;
+        break;
       default:
         return;
     }
@@ -72,17 +130,16 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
     setState(newState);
     switch (newState) {
       case 0:
-        setDisplayValue(0);
+        setDisplayValue("0");
         setFirstOperand(0);
         setSecondOperand(0);
         break;
       case 1:
-        if (state === 0) {
-          setDisplayValue(buttonText);
-          setFirstOperand(parseFloat(buttonText));
+        // TODO: Maybe a new state for DEL to delete these conditions
+        if (buttonText === "DEL") {
+          handleDeleteButtonClick();
         } else {
-          setDisplayValue(`${displayValue}${buttonText}`);
-          setFirstOperand(parseFloat(`${displayValue}${buttonText}`));
+          handleNumberButtonClick(buttonText, OPERAND.FIRST);
         }
         break;
       case 2:
@@ -92,40 +149,21 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
         }
         break;
       case 3:
-        if (state === 2 || state === 4) {
-          setDisplayValue(buttonText);
-          setSecondOperand(parseFloat(buttonText));
+        if (buttonText === "DEL") {
+          handleDeleteButtonClick();
         } else {
-          setDisplayValue(`${displayValue}${buttonText}`);
-          setSecondOperand(parseFloat(`${displayValue}${buttonText}`));
+          handleNumberButtonClick(buttonText, OPERAND.SECOND);
         }
         break;
       case 4:
-        let result = 0;
-        console.log(operator);
-        if (operator === "+") {
-          result = firstOperand + secondOperand;
-        } else if (operator === "-") {
-          result = firstOperand - secondOperand;
-        } else if (operator === "x") {
-          result = firstOperand * secondOperand;
-        } else if (operator === "/") {
-          result = firstOperand / secondOperand;
+        if (buttonText === "DEL") {
+          handleDeleteButtonClick();
+        } else {
+          calculateResult(buttonText);
         }
-        if (
-          buttonText.includes("+") ||
-          buttonText.includes("-") ||
-          buttonText.includes("x") ||
-          buttonText.includes("/")
-        ) {
-          setOperator(buttonText);
-        }
-
-        setFirstOperand(result);
-        // setSecondOperand(0);
-        setDisplayValue(result);
-      default:
         break;
+      default:
+        throw new Error(`The state ${newState} is not supported`);
     }
     console.log(
       state,
