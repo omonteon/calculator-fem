@@ -24,11 +24,13 @@ const BUTTONS = [
 const OPERAND = { FIRST: 1, SECOND: 2 };
 
 const STATE_TABLE = [
-  [0, 1, 2, 0, 0, 0],
-  [1, 1, 2, 0, 2, 1],
-  [2, 3, 2, 0, 2, 2],
-  [3, 3, 4, 0, 4, 3],
-  [4, 3, 2, 0, 4, 4],
+  [0, 1, 2, 0, 0, 0, 5], // State 0
+  [1, 1, 2, 0, 2, 1, 5], // State 1
+  [3, 3, 2, 0, 2, 2, 3], // State 2
+  [3, 3, 4, 0, 4, 3, 6], // State 3
+  [4, 3, 2, 0, 4, 4, 4], // State 4
+  [1, 1, 0, 0, 0, 0, 5], // State 5
+  [3, 3, 4, 0, 4, 3, 5], // State 6
 ];
 
 function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
@@ -51,20 +53,30 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
     }
   }
   function handleNumberButtonClick(buttonText, operandNumber = OPERAND.FIRST) {
-    if (parseFloat(displayValue) === 0) {
+    if (parseFloat(displayValue) === 0 && !displayValue.includes(".")) {
       setDisplayValue(buttonText);
       setFirstOperand(parseFloat(buttonText));
     } else if (operandNumber === OPERAND.FIRST) {
       setDisplayValue(`${displayValue}${buttonText}`);
       setFirstOperand(parseFloat(`${displayValue}${buttonText}`));
     } else if (operandNumber === OPERAND.SECOND) {
+      // If previous state was 2 or 4 (It was in the middle of a transition)
       if (state === 2 || state === 4) {
-        setDisplayValue(buttonText);
+        if (buttonText === ".") {
+          setDisplayValue("0.");
+        } else {
+          setDisplayValue(buttonText);
+        }
         setSecondOperand(parseFloat(buttonText));
       } else {
         setDisplayValue(`${displayValue}${buttonText}`);
         setSecondOperand(parseFloat(`${displayValue}${buttonText}`));
       }
+    }
+  }
+  function handleDecimalPointClick() {
+    if (!displayValue.includes(".")) {
+      setDisplayValue(`${displayValue}.`);
     }
   }
   function calculateResult(buttonText) {
@@ -123,6 +135,9 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
       case "DEL":
         inputIndex = 5;
         break;
+      case ".":
+        inputIndex = 6;
+        break;
       default:
         return;
     }
@@ -160,6 +175,14 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
           handleDeleteButtonClick();
         } else {
           calculateResult(buttonText);
+        }
+        break;
+      case 5:
+      case 6:
+        if (buttonText === "DEL") {
+          handleDeleteButtonClick();
+        } else {
+          handleDecimalPointClick();
         }
         break;
       default:
