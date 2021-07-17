@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@reach/router": "^1.3.4",
+    "exact-math": "^2.2.3",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   }

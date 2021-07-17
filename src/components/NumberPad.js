@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import exactMath from "exact-math";
 
 const BUTTONS = [
   { text: "7" },
@@ -83,13 +84,17 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
     let result = 0;
     console.log(operator);
     if (operator === "+") {
-      result = firstOperand + secondOperand;
+      result = exactMath.add(firstOperand, secondOperand);
+      // result = firstOperand + secondOperand;
     } else if (operator === "-") {
-      result = firstOperand - secondOperand;
+      result = exactMath.sub(firstOperand, secondOperand);
+      // result = firstOperand - secondOperand;
     } else if (operator === "x") {
-      result = firstOperand * secondOperand;
+      result = exactMath.mul(firstOperand, secondOperand);
+      // result = firstOperand * secondOperand;
     } else if (operator === "/") {
-      result = firstOperand / secondOperand;
+      result = exactMath.div(firstOperand, secondOperand);
+      // result = firstOperand / secondOperand;
     }
     if (
       buttonText.includes("+") ||
@@ -100,7 +105,7 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
       setOperator(buttonText);
     }
     setFirstOperand(result);
-    setDisplayValue(result.toString());
+    setDisplayValue(result.toLocaleString()); // TODO: Set comma style number in the display at all times
   }
   function handleButtonClick(event) {
     let inputIndex = null;
