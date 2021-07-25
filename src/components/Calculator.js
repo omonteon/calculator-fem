@@ -4,7 +4,7 @@ import NumberPad from "./NumberPad";
 import ThemeSwitch from "./ThemeSwitch";
 import useStateMachine from "../utils/stateMachine";
 
-const THEME_COLORS = { 1: "#3a4663", 2: "#E6E6E6", 3: "#17062a" };
+const THEME_BG_COLOR = { 1: "#3a4663", 2: "#E6E6E6", 3: "#17062a" };
 
 function Calculator() {
   const [theme, setTheme] = useState("1");
@@ -13,7 +13,7 @@ function Calculator() {
 
   function handleThemeChange(theme) {
     const root = window.document.documentElement;
-    root.style.setProperty("--background-color", THEME_COLORS[theme]);
+    root.style.setProperty("--background-color", THEME_BG_COLOR[theme]);
     setTheme(theme);
   }
   function handleNumberPadButtonClick(event) {
