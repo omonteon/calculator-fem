@@ -17,8 +17,8 @@ const STATE_TABLE = [
   [3, 3, 2, 0, 2, 2, 3], // State 2 operator
   [3, 3, 4, 0, 4, 3, 6], // State 3 secondOperand
   [4, 3, 2, 0, 4, 4, 4], // State 4 result
-  [1, 1, 0, 0, 0, 0, 5], // State 5 decimalPoint
-  [3, 3, 4, 0, 4, 3, 5], // State 6 decimalPoint2
+  [1, 1, 0, 0, 0, 0, 5], // State 5 decimalPoint firstOperand
+  [3, 3, 4, 0, 4, 3, 5], // State 6 decimalPoint secondOperand
 ];
 
 export default function useStateMachine(displayValue, setDisplayValue) {
@@ -40,25 +40,25 @@ export default function useStateMachine(displayValue, setDisplayValue) {
       setFirstOperand(0);
     }
   }
-  function handleNumberButtonClick(buttonText, operandNumber = OPERAND.FIRST) {
+  function handleNumberButtonClick(input, operandNumber = OPERAND.FIRST) {
     if (parseFloat(displayValue) === 0 && !displayValue.includes(".")) {
-      setDisplayValue(buttonText);
-      setFirstOperand(parseFloat(buttonText));
+      setDisplayValue(input);
+      setFirstOperand(parseFloat(input));
     } else if (operandNumber === OPERAND.FIRST) {
-      setDisplayValue(`${displayValue}${buttonText}`); // TODO: Formatted number
-      setFirstOperand(parseFloat(`${displayValue}${buttonText}`));
+      setDisplayValue(`${displayValue}${input}`); // TODO: Formatted number
+      setFirstOperand(parseFloat(`${displayValue}${input}`));
     } else if (operandNumber === OPERAND.SECOND) {
       // If previous state was 2 or 4 (It was in the middle of an operation)
       if (state === 2 || state === 4) {
-        if (buttonText === ".") {
+        if (input === ".") {
           setDisplayValue("0.");
         } else {
-          setDisplayValue(buttonText);
+          setDisplayValue(input);
         }
-        setSecondOperand(parseFloat(buttonText));
+        setSecondOperand(parseFloat(input));
       } else {
-        setDisplayValue(`${displayValue}${buttonText}`); // TODO: Formatted number
-        setSecondOperand(parseFloat(`${displayValue}${buttonText}`));
+        setDisplayValue(`${displayValue}${input}`); // TODO: Formatted number
+        setSecondOperand(parseFloat(`${displayValue}${input}`));
       }
     }
   }
