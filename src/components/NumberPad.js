@@ -21,17 +21,25 @@ const BUTTONS = [
   { text: "RESET", type: "secondary" },
   { text: "=", type: "primary" },
 ];
-
 const OPERAND = { FIRST: 1, SECOND: 2 };
+const INPUT = {
+  ZERO: 0,
+  DIGIT: 1,
+  OPERATOR: 2,
+  RESET: 3,
+  EQUALS: 4,
+  DEL: 5,
+  DECIMAL_POINT: 6,
+};
 
 const STATE_TABLE = [
-  [0, 1, 2, 0, 0, 0, 5], // State 0
-  [1, 1, 2, 0, 2, 1, 5], // State 1
-  [3, 3, 2, 0, 2, 2, 3], // State 2
-  [3, 3, 4, 0, 4, 3, 6], // State 3
-  [4, 3, 2, 0, 4, 4, 4], // State 4
-  [1, 1, 0, 0, 0, 0, 5], // State 5
-  [3, 3, 4, 0, 4, 3, 5], // State 6
+  [0, 1, 2, 0, 0, 0, 5], // State 0 Initial state
+  [1, 1, 2, 0, 2, 1, 5], // State 1 firstOperand
+  [3, 3, 2, 0, 2, 2, 3], // State 2 operator
+  [3, 3, 4, 0, 4, 3, 6], // State 3 secondOperand
+  [4, 3, 2, 0, 4, 4, 4], // State 4 result
+  [1, 1, 0, 0, 0, 0, 5], // State 5 decimalPoint
+  [3, 3, 4, 0, 4, 3, 5], // State 6 decimalPoint2
 ];
 
 function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
@@ -43,7 +51,7 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
   function handleDeleteButtonClick() {
     if (displayValue.length > 1) {
       setDisplayValue((displayValue) => {
-        return displayValue.slice(0, -1);
+        return displayValue.slice(0, -1); // TODO: Formatted number
       });
       setFirstOperand((firstOperand) => {
         return parseFloat(firstOperand.toString().slice(0, -1));
@@ -58,10 +66,10 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
       setDisplayValue(buttonText);
       setFirstOperand(parseFloat(buttonText));
     } else if (operandNumber === OPERAND.FIRST) {
-      setDisplayValue(`${displayValue}${buttonText}`);
+      setDisplayValue(`${displayValue}${buttonText}`); // TODO: Formatted number
       setFirstOperand(parseFloat(`${displayValue}${buttonText}`));
     } else if (operandNumber === OPERAND.SECOND) {
-      // If previous state was 2 or 4 (It was in the middle of a transition)
+      // If previous state was 2 or 4 (It was in the middle of an operation)
       if (state === 2 || state === 4) {
         if (buttonText === ".") {
           setDisplayValue("0.");
@@ -70,7 +78,7 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
         }
         setSecondOperand(parseFloat(buttonText));
       } else {
-        setDisplayValue(`${displayValue}${buttonText}`);
+        setDisplayValue(`${displayValue}${buttonText}`); // TODO: Formatted number
         setSecondOperand(parseFloat(`${displayValue}${buttonText}`));
       }
     }
@@ -80,40 +88,36 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
       setDisplayValue(`${displayValue}.`);
     }
   }
-  function calculateResult(buttonText) {
+  function calculateResult(input) {
     let result = 0;
     console.log(operator);
-    if (operator === "+") {
-      result = exactMath.add(firstOperand, secondOperand);
-      // result = firstOperand + secondOperand;
-    } else if (operator === "-") {
-      result = exactMath.sub(firstOperand, secondOperand);
-      // result = firstOperand - secondOperand;
-    } else if (operator === "x") {
-      result = exactMath.mul(firstOperand, secondOperand);
-      // result = firstOperand * secondOperand;
-    } else if (operator === "/") {
-      result = exactMath.div(firstOperand, secondOperand);
-      // result = firstOperand / secondOperand;
+    switch (operator) {
+      case "+":
+        result = exactMath.add(firstOperand, secondOperand);
+        break;
+      case "-":
+        result = exactMath.sub(firstOperand, secondOperand);
+        break;
+      case "x":
+        result = exactMath.mul(firstOperand, secondOperand);
+        break;
+      case "/":
+        result = exactMath.div(firstOperand, secondOperand);
+        break;
+      default:
+        break;
     }
-    if (
-      buttonText.includes("+") ||
-      buttonText.includes("-") ||
-      buttonText.includes("x") ||
-      buttonText.includes("/")
-    ) {
-      setOperator(buttonText);
+    if (input.match(/[+-x/]/) !== null) {
+      setOperator(input);
     }
     setFirstOperand(result);
-    setDisplayValue(result.toLocaleString()); // TODO: Set comma style number in the display at all times
+    setDisplayValue(result); // TODO: Formatted number
   }
-  function handleButtonClick(event) {
-    let inputIndex = null;
-    const buttonText = event.target.innerText;
-    switch (buttonText) {
+
+  function getNewState(input) {
+    switch (input) {
       case "0":
-        inputIndex = 0;
-        break;
+        return STATE_TABLE[state][INPUT.ZERO];
       case "1":
       case "2":
       case "3":
@@ -123,30 +127,25 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
       case "7":
       case "8":
       case "9":
-        inputIndex = 1;
-        break;
+        return STATE_TABLE[state][INPUT.DIGIT];
       case "+":
       case "-":
       case "x":
       case "/":
-        inputIndex = 2;
-        break;
+        return STATE_TABLE[state][INPUT.OPERATOR];
       case "RESET":
-        inputIndex = 3;
-        break;
+        return STATE_TABLE[state][INPUT.RESET];
       case "=":
-        inputIndex = 4;
-        break;
+        return STATE_TABLE[state][INPUT.EQUALS];
       case "DEL":
-        inputIndex = 5;
-        break;
+        return STATE_TABLE[state][INPUT.DEL];
       case ".":
-        inputIndex = 6;
-        break;
+        return STATE_TABLE[state][INPUT.DECIMAL_POINT];
       default:
-        return;
+        throw new Error(`Unknown input: ${input}`);
     }
-    const newState = STATE_TABLE[state][inputIndex];
+  }
+  function handleStateChange(newState, input) {
     setState(newState);
     switch (newState) {
       case 0:
@@ -156,35 +155,35 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
         break;
       case 1:
         // TODO: Maybe a new state for DEL to delete these conditions
-        if (buttonText === "DEL") {
+        if (input === INPUT.DEL) {
           handleDeleteButtonClick();
         } else {
-          handleNumberButtonClick(buttonText, OPERAND.FIRST);
+          handleNumberButtonClick(input, OPERAND.FIRST);
         }
         break;
       case 2:
         setSecondOperand(0);
-        if (buttonText !== "0") {
-          setOperator(buttonText);
+        if (input !== INPUT.ZERO) {
+          setOperator(input);
         }
         break;
       case 3:
-        if (buttonText === "DEL") {
+        if (input === INPUT.DEL) {
           handleDeleteButtonClick();
         } else {
-          handleNumberButtonClick(buttonText, OPERAND.SECOND);
+          handleNumberButtonClick(input, OPERAND.SECOND);
         }
         break;
       case 4:
-        if (buttonText === "DEL") {
+        if (input === INPUT.DEL) {
           handleDeleteButtonClick();
         } else {
-          calculateResult(buttonText);
+          calculateResult(input);
         }
         break;
       case 5:
       case 6:
-        if (buttonText === "DEL") {
+        if (input === INPUT.DEL) {
           handleDeleteButtonClick();
         } else {
           handleDecimalPointClick();
@@ -193,6 +192,11 @@ function NumberPad({ displayValue = "", setDisplayValue = () => {} }) {
       default:
         throw new Error(`The state ${newState} is not supported`);
     }
+  }
+  function handleButtonClick(event) {
+    const input = event.target.innerText;
+    const newState = getNewState(input);
+    handleStateChange(newState, input);
     console.log(
       state,
       newState,
