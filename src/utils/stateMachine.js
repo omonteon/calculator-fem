@@ -87,10 +87,10 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         break;
     }
     if (input.match(/[+-x/]/) !== null) {
-      setOperator(input);
+      setOperator(operator);
     }
     setFirstOperand(result);
-    setDisplayValue(result); // TODO: Formatted number
+    setDisplayValue(`${result}`); // TODO: Formatted number
   }
   function getNewState(input) {
     switch (input) {
@@ -133,7 +133,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         break;
       case 1:
         // TODO: Maybe a new state for DEL to delete these conditions
-        if (input === INPUT.DEL) {
+        if (input === "DEL") {
           handleDeleteButtonClick();
         } else {
           handleNumberButtonClick(input, OPERAND.FIRST);
@@ -141,19 +141,19 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         break;
       case 2:
         setSecondOperand(0);
-        if (input !== INPUT.ZERO) {
+        if (input !== "0") {
           setOperator(input);
         }
         break;
       case 3:
-        if (input === INPUT.DEL) {
+        if (input === "DEL") {
           handleDeleteButtonClick();
         } else {
           handleNumberButtonClick(input, OPERAND.SECOND);
         }
         break;
       case 4:
-        if (input === INPUT.DEL) {
+        if (input === "DEL") {
           handleDeleteButtonClick();
         } else {
           calculateResult(input);
@@ -161,7 +161,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         break;
       case 5:
       case 6:
-        if (input === INPUT.DEL) {
+        if (input === "DEL") {
           handleDeleteButtonClick();
         } else {
           handleDecimalPointClick();
