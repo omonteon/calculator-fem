@@ -55,16 +55,6 @@ body {
   background-color: var(--background-color);
 }
 
-.attribution {
-  font-size: 11px;
-  color: white;
-  text-align: center;
-  margin-bottom: 32px;
-}
-.attribution a {
-  color: white;
-}
-
 .theme-1 {
   --primary-color: #434a59;
   --secondary-color: #ffffff;
@@ -115,6 +105,16 @@ body {
   --btn-secondary-bg-color--hover: #8631af;
   --btn-secondary-shadow-color: #be15f4;
   --display-bg-color: #1e0936;
+}
+
+.attribution {
+  font-size: 11px;
+  color: var(--header-color);
+  text-align: center;
+  margin-bottom: 32px;
+}
+.attribution a {
+  color: var(--header-color);
 }
 
 /* CALCULATOR */
@@ -243,6 +243,7 @@ body {
   gap: var(--number-pad-gap);
   padding: var(--number-pad-padding);
   margin-top: 24px;
+  margin-bottom: 31px;
   background-color: var(--background-color-dark);
 }
 .number-pad > button:nth-last-of-type(2),
