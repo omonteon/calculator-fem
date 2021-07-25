@@ -118,19 +118,19 @@ body {
 }
 
 /* CALCULATOR */
-.calculator {
+.app {
   max-width: var(--calculator-max-width);
   margin: var(--calculator-margin);
 }
 
 /* HEADER */
-.calculator__header {
+.app__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
 }
-.calculator__header h2 {
+.app__header h2 {
   font-weight: bold;
   font-size: 32px;
   line-height: 36px;
