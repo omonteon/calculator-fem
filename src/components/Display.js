@@ -1,7 +1,14 @@
 import React from "react";
 
 function Display({ value = 0 }) {
-  return <div className="display">{parseFloat(value).toLocaleString()}</div>;
+  return (
+    <input
+      type="text"
+      className="display"
+      readOnly={true}
+      value={parseFloat(value).toLocaleString()}
+    />
+  );
 }
 
 export default Display;
