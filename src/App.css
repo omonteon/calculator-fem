@@ -207,8 +207,10 @@ body {
 .triple-switch .wrapper input:focus {
   cursor: pointer;
 }
-.triple-switch .wrapper input:checked:hover + label {
-  background-color: var(--btn-primary-bg-color--hover);
+@media (hover: hover) {
+  .triple-switch .wrapper input:checked:hover + label {
+    background-color: var(--btn-primary-bg-color--hover);
+  }
 }
 .triple-switch .wrapper input:checked + label {
   /* cursor: pointer; */
@@ -261,9 +263,11 @@ body {
   border: none;
   padding: 0;
 }
-.number-pad > button:hover {
-  cursor: pointer;
-  background-color: var(--btn-default-bg-color--hover);
+@media (hover: hover) {
+  .number-pad > button:hover {
+    cursor: pointer;
+    background-color: var(--btn-default-bg-color--hover);
+  }
 }
 .number-pad button .btn__text {
   /* BUTTON TEXT */
@@ -280,15 +284,19 @@ body {
   background-color: var(--btn-primary-bg-color);
   box-shadow: inset 0px -4px 0px var(--btn-primary-shadow-color);
 }
-.number-pad > button.primary:hover {
-  background-color: var(--btn-primary-bg-color--hover);
+@media (hover: hover) {
+  .number-pad > button.primary:hover {
+    background-color: var(--btn-primary-bg-color--hover);
+  }
 }
 .number-pad > button.secondary {
   background-color: var(--btn-secondary-bg-color);
   box-shadow: inset 0px -4px 0px var(--btn-secondary-shadow-color);
 }
-.number-pad > button.secondary:hover {
-  background-color: var(--btn-secondary-bg-color--hover);
+@media (hover: hover) {
+  .number-pad > button.secondary:hover {
+    background-color: var(--btn-secondary-bg-color--hover);
+  }
 }
 .number-pad > button.secondary .btn__text,
 .number-pad > button.primary .btn__text {
