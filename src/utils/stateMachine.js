@@ -30,7 +30,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
   function handleDeleteButtonClick() {
     if (displayValue.length > 1) {
       setDisplayValue((displayValue) => {
-        return displayValue.slice(0, -1); // TODO: Formatted number
+        return displayValue.slice(0, -1);
       });
       setFirstOperand((firstOperand) => {
         return parseFloat(firstOperand.toString().slice(0, -1));
@@ -45,7 +45,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
       setDisplayValue(input);
       setFirstOperand(parseFloat(input));
     } else if (operandNumber === OPERAND.FIRST) {
-      setDisplayValue(`${displayValue}${input}`); // TODO: Formatted number
+      setDisplayValue(`${displayValue}${input}`);
       setFirstOperand(parseFloat(`${displayValue}${input}`));
     } else if (operandNumber === OPERAND.SECOND) {
       // If previous state was 2 or 4 (It was in the middle of an operation)
@@ -57,7 +57,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         }
         setSecondOperand(parseFloat(input));
       } else {
-        setDisplayValue(`${displayValue}${input}`); // TODO: Formatted number
+        setDisplayValue(`${displayValue}${input}`);
         setSecondOperand(parseFloat(`${displayValue}${input}`));
       }
     }
@@ -90,7 +90,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
       setOperator(operator);
     }
     setFirstOperand(result);
-    setDisplayValue(`${result}`); // TODO: Formatted number
+    setDisplayValue(`${result}`);
   }
   function getNewState(input) {
     switch (input) {
@@ -132,7 +132,6 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         setSecondOperand(0);
         break;
       case 1:
-        // TODO: Maybe a new state for DEL to delete these conditions
         if (input === "DEL") {
           handleDeleteButtonClick();
         } else {
