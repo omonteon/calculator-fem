@@ -236,6 +236,8 @@ body {
   color: var(--header-color);
   text-overflow: ellipsis;
   overflow: hidden;
+  border: none;
+  width: 100%;
 }
 
 /* NUMBER PAD */
@@ -259,10 +261,32 @@ body {
   background-color: var(--btn-default-bg-color);
   box-shadow: inset 0px -4px 0px var(--btn-default-shadow-color);
   border-radius: var(--button-border-radius);
+  transition: all 100ms linear;
   /* CLEARING DEFAULT STYLES */
   border: none;
   padding: 0;
 }
+.number-pad > button:active,
+.number-pad > button.primary:active,
+.number-pad > button.secondary:active {
+  cursor: pointer;
+  background-color: var(--btn-default-bg-color--hover);
+  box-shadow: inset 0px -2px 0px var(--btn-default-shadow-color);
+  margin-top: 2px;
+}
+
+.number-pad > button.primary:active {
+  box-shadow: inset 0px -2px 0px var(--btn-primary-shadow-color);
+}
+
+.number-pad > button.secondary:active {
+  box-shadow: inset 0px -2px 0px var(--btn-secondary-shadow-color);
+}
+
+.number-pad > button:active .btn__text {
+  margin-bottom: 3px;
+}
+
 @media (hover: hover) {
   .number-pad > button:hover {
     cursor: pointer;
@@ -276,10 +300,12 @@ body {
   font-size: var(--number-pad-font-size);
   line-height: var(--number-pad-line-height);
   letter-spacing: var(--number-pad-letter-spacing);
+  transition: all 100ms linear;
   /* DETAILING */
   display: block;
   margin-bottom: 5px;
 }
+
 .number-pad > button.primary {
   background-color: var(--btn-primary-bg-color);
   box-shadow: inset 0px -4px 0px var(--btn-primary-shadow-color);
