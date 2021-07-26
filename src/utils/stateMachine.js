@@ -82,12 +82,11 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         break;
       case "/":
         result = exactMath.div(firstOperand, secondOperand);
-        console.log(result);
         break;
       default:
         throw new Error(`The operator ${operator} is invalid`);
     }
-    if (input.match(/[+-x/]/) !== null) {
+    if (/[x\-/\+]/.test(input)) {
       setOperator(operator);
     }
     setFirstOperand(result);
@@ -141,7 +140,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         break;
       case 2:
         setSecondOperand(0);
-        if (input !== "0") {
+        if (/[x\-/\+]/.test(input)) {
           setOperator(input);
         }
         break;
