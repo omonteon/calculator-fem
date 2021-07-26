@@ -6,7 +6,9 @@ function Display({ value = 0 }) {
       type="text"
       className="display"
       readOnly={true}
-      value={parseFloat(value).toLocaleString()}
+      value={parseFloat(value)
+        .toString()
+        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
     />
   );
 }
