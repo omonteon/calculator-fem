@@ -234,10 +234,13 @@ body {
   text-align: right;
   letter-spacing: var(--display-letter-spacing);
   color: var(--header-color);
-  text-overflow: ellipsis;
   overflow: hidden;
   border: none;
   width: 100%;
+}
+
+.display.long-number {
+  font-size: calc(var(--display-font-size) - 13px);
 }
 
 /* NUMBER PAD */
