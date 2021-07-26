@@ -14,7 +14,7 @@
 :root {
   /* General variables */
   --background-color: #3a4663;
-  --calculator-max-width: 375px;
+  --calculator-max-width: 100%;
   --calculator-margin: 28px 24px 31px;
   /* Display variables */
   --display-font-size: 32px;
@@ -232,6 +232,8 @@ body {
   text-align: right;
   letter-spacing: var(--display-letter-spacing);
   color: var(--header-color);
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 /* NUMBER PAD */
