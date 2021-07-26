@@ -85,7 +85,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         console.log(result);
         break;
       default:
-        break;
+        throw new Error(`The operator ${operator} is invalid`);
     }
     if (input.match(/[+-x/]/) !== null) {
       setOperator(operator);
