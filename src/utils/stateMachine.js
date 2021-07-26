@@ -82,6 +82,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         break;
       case "/":
         result = exactMath.div(firstOperand, secondOperand);
+        console.log(result);
         break;
       default:
         break;
@@ -154,6 +155,9 @@ export default function useStateMachine(displayValue, setDisplayValue) {
       case 4:
         if (input === "DEL") {
           handleDeleteButtonClick();
+        } else if (operator === "/" && secondOperand === 0) {
+          alert("Cannot divide by zero");
+          setState(0);
         } else {
           calculateResult(input);
         }
