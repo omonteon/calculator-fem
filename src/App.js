@@ -9,6 +9,20 @@ import "./App.css";
 // CSS custom properties(variables)
 // CSS Grid
 
+// Resources that helped me with the project
+// https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
+// https://webdesign.tutsplus.com/tutorials/how-to-make-custom-accessible-checkboxes-and-radio-buttons--cms-32074
+// https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+// https://www.joshwcomeau.com/react/dark-mode/#adding-a-toggle
+// https://www.joshwcomeau.com/animation/3d-button/
+// https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+
+// Next steps:
+// 1: Accesibility test [PENDING]. Make display focusable [DONE].
+// 2: Write e2e tests and unit tests (cypress + jest)
+// 3: Handle flicker when loading preferred theme
+// 4: Write README
+
 const THEME_BG_COLOR = { 1: "#3a4663", 2: "#E6E6E6", 3: "#17062a" };
 
 function App() {
@@ -26,11 +40,6 @@ function App() {
     const hasPersistedPreference = typeof persistedThemePreference === "string";
 
     if (hasPersistedPreference) {
-      const root = window.document.documentElement;
-      root.style.setProperty(
-        "--background-color",
-        THEME_BG_COLOR[persistedThemePreference]
-      );
       return persistedThemePreference;
     }
     try {
