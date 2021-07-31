@@ -14,7 +14,7 @@
 :root {
   /* General variables */
   --background-color: #3a4663;
-  --calculator-max-width: 375px;
+  --calculator-max-width: 100%;
   --calculator-margin: 28px 24px 31px;
   /* Display variables */
   --display-font-size: 32px;
@@ -37,7 +37,7 @@
     --calculator-margin: 28px auto 31px;
     /* Display variables */
     --display-font-size: 48px;
-    --display-line-height: 52px;
+    --display-line-height: 53px;
     --display-letter-spacing: -0.8px;
     --display-padding: 38px 32px 36px;
     /* Number pad variables */
@@ -50,19 +50,20 @@
   }
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: #e6e6e6;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #3a4663;
+  }
+}
+
 body {
   margin: 0;
   background-color: var(--background-color);
-}
-
-.attribution {
-  font-size: 11px;
-  color: white;
-  text-align: center;
-  margin-bottom: 32px;
-}
-.attribution a {
-  color: white;
 }
 
 .theme-1 {
@@ -117,20 +118,30 @@ body {
   --display-bg-color: #1e0936;
 }
 
+.attribution {
+  font-size: 11px;
+  color: var(--header-color);
+  text-align: center;
+  margin-bottom: 32px;
+}
+.attribution a {
+  color: var(--header-color);
+}
+
 /* CALCULATOR */
-.calculator {
+.app {
   max-width: var(--calculator-max-width);
   margin: var(--calculator-margin);
 }
 
 /* HEADER */
-.calculator__header {
+.app__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
 }
-.calculator__header h2 {
+.app__header h2 {
   font-weight: bold;
   font-size: 32px;
   line-height: 36px;
@@ -207,8 +218,10 @@ body {
 .triple-switch .wrapper input:focus {
   cursor: pointer;
 }
-.triple-switch .wrapper input:checked:hover + label {
-  background-color: var(--btn-primary-bg-color--hover);
+@media (hover: hover) {
+  .triple-switch .wrapper input:checked:hover + label {
+    background-color: var(--btn-primary-bg-color--hover);
+  }
 }
 .triple-switch .wrapper input:checked + label {
   /* cursor: pointer; */
@@ -232,6 +245,13 @@ body {
   text-align: right;
   letter-spacing: var(--display-letter-spacing);
   color: var(--header-color);
+  overflow: hidden;
+  border: none;
+  width: 100%;
+}
+
+.display.long-number {
+  font-size: calc(var(--display-font-size) - 13px);
 }
 
 /* NUMBER PAD */
@@ -243,6 +263,7 @@ body {
   gap: var(--number-pad-gap);
   padding: var(--number-pad-padding);
   margin-top: 24px;
+  margin-bottom: 31px;
   background-color: var(--background-color-dark);
 }
 .number-pad > button:nth-last-of-type(2),
@@ -254,13 +275,37 @@ body {
   background-color: var(--btn-default-bg-color);
   box-shadow: inset 0px -4px 0px var(--btn-default-shadow-color);
   border-radius: var(--button-border-radius);
+  transition: all 100ms linear;
   /* CLEARING DEFAULT STYLES */
   border: none;
   padding: 0;
 }
-.number-pad > button:hover {
+.number-pad > button:active,
+.number-pad > button.primary:active,
+.number-pad > button.secondary:active {
   cursor: pointer;
   background-color: var(--btn-default-bg-color--hover);
+  box-shadow: inset 0px -2px 0px var(--btn-default-shadow-color);
+  margin-top: 2px;
+}
+
+.number-pad > button.primary:active {
+  box-shadow: inset 0px -2px 0px var(--btn-primary-shadow-color);
+}
+
+.number-pad > button.secondary:active {
+  box-shadow: inset 0px -2px 0px var(--btn-secondary-shadow-color);
+}
+
+.number-pad > button:active .btn__text {
+  margin-bottom: 3px;
+}
+
+@media (hover: hover) {
+  .number-pad > button:hover {
+    cursor: pointer;
+    background-color: var(--btn-default-bg-color--hover);
+  }
 }
 .number-pad button .btn__text {
   /* BUTTON TEXT */
@@ -269,23 +314,31 @@ body {
   font-size: var(--number-pad-font-size);
   line-height: var(--number-pad-line-height);
   letter-spacing: var(--number-pad-letter-spacing);
+  transition: all 100ms linear;
   /* DETAILING */
   display: block;
   margin-bottom: 5px;
 }
+
 .number-pad > button.primary {
   background-color: var(--btn-primary-bg-color);
   box-shadow: inset 0px -4px 0px var(--btn-primary-shadow-color);
 }
-.number-pad > button.primary:hover {
-  background-color: var(--btn-primary-bg-color--hover);
+@media (hover: hover) {
+  .number-pad > button.primary:hover,
+  .number-pad > button.primary:focus {
+    background-color: var(--btn-primary-bg-color--hover);
+  }
 }
 .number-pad > button.secondary {
   background-color: var(--btn-secondary-bg-color);
   box-shadow: inset 0px -4px 0px var(--btn-secondary-shadow-color);
 }
-.number-pad > button.secondary:hover {
-  background-color: var(--btn-secondary-bg-color--hover);
+@media (hover: hover) {
+  .number-pad > button.secondary:hover,
+  .number-pad > button.secondary:focus {
+    background-color: var(--btn-secondary-bg-color--hover);
+  }
 }
 .number-pad > button.secondary .btn__text,
 .number-pad > button.primary .btn__text {

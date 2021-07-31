@@ -1,12 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import ThemeSwitch from "./components/ThemeSwitch";
 import Calculator from "./components/Calculator";
-import './App.css';
+import "./App.css";
 
-const App = () => {
+// In this project I'm learning/using for the first time:
+// BEM
+// CSS custom properties(variables)
+// CSS Grid
+
+const THEME_BG_COLOR = { 1: "#3a4663", 2: "#E6E6E6", 3: "#17062a" };
+
+function App() {
+  const defaultTheme = getDefaultTheme();
+  const [theme, setTheme] = useState(defaultTheme);
+
+  useEffect(() => {
+    localStorage.setItem("selected-theme", theme);
+    const root = window.document.documentElement;
+    root.style.setProperty("--background-color", THEME_BG_COLOR[theme]);
+  }, [theme]);
+
+  function getDefaultTheme() {
+    const persistedThemePreference = localStorage.getItem("selected-theme");
+    const hasPersistedPreference = typeof persistedThemePreference === "string";
+
+    if (hasPersistedPreference) {
+      const root = window.document.documentElement;
+      root.style.setProperty(
+        "--background-color",
+        THEME_BG_COLOR[persistedThemePreference]
+      );
+      return persistedThemePreference;
+    }
+    try {
+      // If they haven't been explicit, let's check the media query
+      const preferedColorScheme = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
+      const hasMediaQueryPreference =
+        typeof preferedColorScheme.matches === "boolean";
+
+      if (hasMediaQueryPreference) {
+        return preferedColorScheme.matches ? "1" : "2";
+      }
+    } catch (error) {
+      throw new Error("prefers-color-scheme is not supported by the browser");
+    }
+
+    // Default to Light
+    return "2";
+  }
+
   return (
-   <Calculator />
+    <>
+      <div className={`app theme-${theme}`}>
+        <div className="app__header">
+          <h2>calc</h2>
+          <ThemeSwitch theme={theme} onThemeChange={setTheme} />
+        </div>
+        <Calculator />
+        <div className="attribution">
+          Challenge by{" "}
+          <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
+            Frontend Mentor
+          </a>
+          . Coded by <a href="https://github.com/omonteon">Omar Monteon</a>.
+        </div>
+      </div>
+    </>
   );
-};
+}
 
 ReactDOM.render(<App />, document.getElementById("root"));
