@@ -16,7 +16,6 @@ import "./App.css";
 // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 // https://www.joshwcomeau.com/react/dark-mode/#adding-a-toggle
 // https://www.joshwcomeau.com/animation/3d-button/
-// https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 
 const THEME_BG_COLOR = { 1: "#3a4663", 2: "#E6E6E6", 3: "#17062a" };
 
