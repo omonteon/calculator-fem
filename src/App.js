@@ -51,8 +51,8 @@ function App() {
       throw new Error("prefers-color-scheme is not supported by the browser");
     }
 
-    // Default to Light
-    return "2";
+    // Default to Dark
+    return "1";
   }
 
   return (
