@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Display from "./Display";
 import NumberPad from "./NumberPad";
-import useStateMachine from "../utils/stateMachine";
+import useStateMachine from "../hooks/stateMachine";
 
 function Calculator() {
   const [displayValue, setDisplayValue] = useState("0");

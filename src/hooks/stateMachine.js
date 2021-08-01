@@ -87,7 +87,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         throw new Error(`The operator ${operator} is invalid`);
     }
     if (/[x\-/\+]/.test(input)) {
-      setOperator(operator);
+      setOperator(input);
     }
     setFirstOperand(result);
     setDisplayValue(`${result}`);
