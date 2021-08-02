@@ -17,6 +17,7 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
               name="theme"
               id="theme-1"
               value="1"
+              aria-label="Theme #1"
               onChange={(e) => {
                 onThemeChange(e.currentTarget.value);
               }}
@@ -31,6 +32,7 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
               name="theme"
               id="theme-2"
               value="2"
+              aria-label="Theme #2"
               onChange={(e) => {
                 onThemeChange(e.currentTarget.value);
               }}
@@ -45,6 +47,7 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
               name="theme"
               id="theme-3"
               value="3"
+              aria-label="Theme #3"
               onChange={(e) => {
                 onThemeChange(e.currentTarget.value);
               }}

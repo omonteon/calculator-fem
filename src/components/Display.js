@@ -11,6 +11,7 @@ function Display({ value = 0 }) {
   return (
     <input
       type="text"
+      aria-label="Calculator display"
       className={`display ${formattedValue.length > 15 ? "long-number" : ""}`}
       readOnly={true}
       value={formattedValue}

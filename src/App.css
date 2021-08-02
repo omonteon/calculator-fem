@@ -130,7 +130,7 @@ body {
   align-items: center;
   margin-bottom: 32px;
 }
-.app__header h2 {
+.app__header h1 {
   font-weight: bold;
   font-size: 32px;
   line-height: 36px;
@@ -284,10 +284,6 @@ body {
 
 .number-pad > button.secondary:active {
   box-shadow: inset 0px -2px 0px var(--btn-secondary-shadow-color);
-}
-
-.number-pad > button:active .btn__text {
-  margin-bottom: 3px;
 }
 
 @media (hover: hover) {
