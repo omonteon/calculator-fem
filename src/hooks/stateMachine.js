@@ -69,7 +69,6 @@ export default function useStateMachine(displayValue, setDisplayValue) {
   }
   function calculateResult(input) {
     let result = 0;
-    console.log(operator);
     switch (operator) {
       case "+":
         result = exactMath.add(firstOperand, secondOperand);
@@ -176,11 +175,6 @@ export default function useStateMachine(displayValue, setDisplayValue) {
   function onInput(input) {
     const newState = getNewState(input);
     handleStateChange(newState, input);
-    console.log(
-      state,
-      newState,
-      `First: ${firstOperand}, Second: ${secondOperand}, Operator ${operator}`
-    );
   }
   function dispatchInput(input) {
     onInput(input);
