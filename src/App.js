@@ -59,7 +59,7 @@ function App() {
     <>
       <div className={`app theme-${theme}`}>
         <div className="app__header">
-          <h2>calc</h2>
+          <h1>calc</h1>
           <ThemeSwitch theme={theme} onThemeChange={setTheme} />
         </div>
         <Calculator />
