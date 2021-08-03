@@ -16,7 +16,7 @@ const STATE_TABLE = [
   [1, 1, 2, 0, 2, 1, 5], // State 1 firstOperand
   [3, 3, 2, 0, 2, 2, 3], // State 2 operator
   [3, 3, 4, 0, 4, 3, 6], // State 3 secondOperand
-  [4, 3, 2, 0, 4, 4, 4], // State 4 result
+  [0, 4, 2, 0, 4, 4, 4], // State 4 result
   [1, 1, 0, 0, 0, 0, 5], // State 5 decimalPoint firstOperand
   [3, 3, 4, 0, 4, 3, 5], // State 6 decimalPoint secondOperand
 ];
@@ -62,9 +62,9 @@ export default function useStateMachine(displayValue, setDisplayValue) {
       }
     }
   }
-  function handleDecimalPointClick() {
+  function handleDecimalPointClick(overrideDisplayValue) {
     if (!displayValue.includes(".")) {
-      setDisplayValue(`${displayValue}.`);
+      setDisplayValue(`${overrideDisplayValue ?? displayValue}.`);
     }
   }
   function calculateResult(input) {
@@ -156,8 +156,16 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         } else if (operator === "/" && secondOperand === 0) {
           alert("Cannot divide by zero");
           setState(0);
-        } else {
+        } else if (input === ".") {
+          handleDecimalPointClick("0");
+          setState(5);
+        } else if (input === "=") {
           calculateResult(input);
+        } else if (/[1-9]/.test(input)) {
+          setDisplayValue(input.toString());
+          setFirstOperand(parseFloat(input));
+          setSecondOperand(0);
+          setState(1);
         }
         break;
       case 5:
