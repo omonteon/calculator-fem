@@ -24,7 +24,7 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
               checked={theme === "1"}
               aria-checked={theme === "1" ? "true" : "false"}
             />
-            <label htmlFor="theme-1"></label>
+            <span></span>
           </div>
           <div className="wrapper">
             <input
@@ -39,7 +39,7 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
               checked={theme === "2"}
               aria-checked={theme === "2" ? "true" : "false"}
             />
-            <label htmlFor="theme-2"></label>
+            <span></span>
           </div>
           <div className="wrapper">
             <input
@@ -54,7 +54,7 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
               checked={theme === "3"}
               aria-checked={theme === "3" ? "true" : "false"}
             />
-            <label htmlFor="theme-3"></label>
+            <span></span>
           </div>
         </div>
       </div>
