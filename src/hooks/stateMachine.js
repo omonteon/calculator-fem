@@ -17,7 +17,7 @@ const STATE_TABLE = [
   [3, 3, 2, 0, 2, 2, 3], // State 2 operator
   [3, 3, 4, 0, 4, 3, 6], // State 3 secondOperand
   [0, 4, 2, 0, 4, 4, 4], // State 4 result
-  [1, 1, 0, 0, 0, 0, 5], // State 5 decimalPoint firstOperand
+  [1, 1, 2, 0, 0, 0, 5], // State 5 decimalPoint firstOperand
   [3, 3, 4, 0, 4, 3, 5], // State 6 decimalPoint secondOperand
 ];
 
@@ -145,6 +145,10 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         setSecondOperand(0);
         if (/[x\-/\+]/.test(input)) {
           setOperator(input);
+          // Operator click on number ending with decimal point should remove it
+          if (displayValue.endsWith(".")) {
+            setDisplayValue(displayValue.slice(0, -1));
+          }
         }
         break;
       case 3:
