@@ -33,6 +33,9 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         return displayValue.slice(0, -1);
       });
       setFirstOperand((firstOperand) => {
+        if (displayValue.endsWith(".")) {
+          return firstOperand;
+        }
         return parseFloat(firstOperand.toString().slice(0, -1));
       });
     } else {
@@ -69,6 +72,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
   }
   function calculateResult(input) {
     let result = 0;
+    console.log("First operand:", firstOperand);
     switch (operator) {
       case "+":
         result = exactMath.add(firstOperand, secondOperand);
@@ -183,6 +187,11 @@ export default function useStateMachine(displayValue, setDisplayValue) {
   function onInput(input) {
     const newState = getNewState(input);
     handleStateChange(newState, input);
+    console.log(
+      state,
+      newState,
+      `First: ${firstOperand}, Second: ${secondOperand}, Operator ${operator}`
+    );
   }
   function dispatchInput(input) {
     onInput(input);
