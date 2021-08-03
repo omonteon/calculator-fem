@@ -6,9 +6,9 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
       <span className="theme-picker__title">Theme</span>
       <div className="theme-picker__switch">
         <div className="switch-option-numbers">
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
+          <label htmlFor="theme-1">1</label>
+          <label htmlFor="theme-2">2</label>
+          <label htmlFor="theme-3">3</label>
         </div>
         <div className="triple-switch">
           <div className="wrapper">
@@ -17,7 +17,6 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
               name="theme"
               id="theme-1"
               value="1"
-              aria-label="Theme #1"
               onChange={(e) => {
                 onThemeChange(e.currentTarget.value);
               }}
@@ -32,7 +31,6 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
               name="theme"
               id="theme-2"
               value="2"
-              aria-label="Theme #2"
               onChange={(e) => {
                 onThemeChange(e.currentTarget.value);
               }}
@@ -47,7 +45,6 @@ function ThemeSwitch({ theme = "1", onThemeChange = () => {} }) {
               name="theme"
               id="theme-3"
               value="3"
-              aria-label="Theme #3"
               onChange={(e) => {
                 onThemeChange(e.currentTarget.value);
               }}

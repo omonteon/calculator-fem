@@ -160,7 +160,7 @@ body {
   margin: 0 5px 5px;
   justify-content: space-between;
 }
-.switch-option-numbers span {
+.switch-option-numbers label {
   font-weight: 700;
   color: var(--header-color);
   font-size: 12px;
