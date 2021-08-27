@@ -167,7 +167,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         } else if (input === ".") {
           handleDecimalPointClick("0");
           setState(5);
-        } else if ((input = "=x")) {
+        } else if ((input = "=")) {
           calculateResult(input);
         } else if (/[1-9]/.test(input)) {
           setDisplayValue(input.toString());
