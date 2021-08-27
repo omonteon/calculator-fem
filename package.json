@@ -2,12 +2,15 @@
   "name": "calculator-fem",
   "version": "1.0.0",
   "description": "![Design preview for the Calculator app coding challenge](./design/desktop-preview.jpg)",
-  "main": "src/App.js",
   "scripts": {
     "clear-build-cache": "rm -rf .cache/ dist/",
-    "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|json)\"",
+    "format": "npm run prettier -- --write",
+    "check-format": "npm run prettier -- --list-different",
+    "validate": "npm run lint && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
