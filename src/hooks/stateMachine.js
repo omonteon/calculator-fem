@@ -89,7 +89,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
       default:
         throw new Error(`The operator ${operator} is invalid`);
     }
-    if (/[x\-/\+]/.test(input)) {
+    if (/[x\-/+]/.test(input)) {
       setOperator(input);
     }
     setFirstOperand(result);
@@ -143,7 +143,7 @@ export default function useStateMachine(displayValue, setDisplayValue) {
         break;
       case 2:
         setSecondOperand(0);
-        if (/[x\-/\+]/.test(input)) {
+        if (/[x\-/+]/.test(input)) {
           setOperator(input);
           // Operator click on number ending with decimal point should remove it
           if (displayValue.endsWith(".")) {
@@ -174,6 +174,8 @@ export default function useStateMachine(displayValue, setDisplayValue) {
           setFirstOperand(parseFloat(input));
           setSecondOperand(0);
           setState(1);
+        } else {
+          calculateResult(input);
         }
         break;
       case 5:
